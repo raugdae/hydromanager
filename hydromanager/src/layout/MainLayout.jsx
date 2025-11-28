@@ -20,7 +20,7 @@ function MainLayout() {
           
         </div>
       </header>
-      <div className="flex flex-1 h-full w-full container mx-auto border-2">
+      <div className="flex flex-1 h-full w-full container mx-auto">
         <Outlet />
       </div>
     </div>

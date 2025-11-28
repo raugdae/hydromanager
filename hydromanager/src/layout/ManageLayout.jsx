@@ -10,7 +10,7 @@ function ManageLayout() {
   return (
     <ManagerProvider>
       <ManageNav/>
-      <div className="flex w-full flex-1 px-12 py-4 border-l-green-500 border-orange-900">
+      <div className="flex w-full flex-1 px-12 py-4 border-l-green-500">
         <Outlet />
       </div>
     </ManagerProvider>

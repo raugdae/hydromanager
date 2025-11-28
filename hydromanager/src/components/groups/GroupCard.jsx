@@ -1,15 +1,28 @@
-function GroupCard({ groupName, parentGroup = null, onClick }) {
+import { SquarePen, Trash } from "lucide-react";
+
+function GroupCard({
+  groupName,
+  parentGroup = null,
+  onClickEdit,
+  onClickDelete,
+}) {
   return (
-    <div className="flex flex-1 flex-col border-2 p-4 gap-2 max-h-1/2">
-      <div className="flex flex-row gap-2">
-        <div className='flex font-semibold'>Nom du groupe :</div>
-        <div className='flex'>{groupName}</div>
+    <div className="animate-fade-in-up opacity-0 grid h-48 w-72 grid-cols-2 grid-rows-3 border-b-2 border-emerald-900 bg-linear-to-b from-green-600 to-green-200 p-4 gap-2">
+      <div className="font-semibold">Nom du groupe :</div>
+      <div>{groupName}</div>
+
+      <div className="font-semibold ">Groupe parent :</div>
+      <div>{parentGroup || "Aucun"}</div>
+      <div className="self-end">
+        <button onClick={onClickEdit}>
+          <SquarePen size={32} className='stroke-blue-600' />
+        </button>
       </div>
-      <div className="flex flex-row gap-2">
-        <div className='font-semibold'>Groupe parent :</div>
-        <div>{parentGroup || 'Aucun'}</div>
+      <div className="justify-self-end self-end">
+        <button onClick={onClickDelete} >
+          <Trash size={32}className='stroke-red-600'/>
+        </button>
       </div>
-      <button className='hover:cursor-pointer rounded-xl bg-green-600' onClick={onClick}>Modifier</button>
     </div>
   );
 }

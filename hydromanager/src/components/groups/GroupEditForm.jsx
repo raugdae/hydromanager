@@ -5,21 +5,30 @@ import { useState,useEffect } from "react";
 
 function GroupEditForm({ initialData, groupList, onSubmit, onCancel }) {
   const [formData, setFormData] = useState(initialData);
-  const [parentAvailable,setParentAvailable] = useState(groupList);
+  const [parentAvailable,setParentAvailable] = useState([]);
 
-
-    useEffect(() => {
-        console.log('enter useEffect');
-        parentRecursiveCheck(initialData);
-        console.log(parentAvailable);
-
-    },[])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
     onCancel();
   };
+
+  useEffect(() => {
+
+    if (initialData){
+    const available = groupList.filter((item) => {
+      if (item.id === initialData.id) return false;
+      if (isChildOf(initialData.id, item.id)) return false;
+      return true;
+    });
+    setParentAvailable(available);
+    }
+    else {
+      setParentAvailable(groupList);
+    }
+
+  }, [groupList, initialData,formData]);
 
   const setParentGroup = (e) =>{
     
@@ -28,32 +37,22 @@ function GroupEditForm({ initialData, groupList, onSubmit, onCancel }) {
     }else{
         setFormData({...formData,fk_parentgroupid:e.target.value})
     }
-
-    console.log("formdata:",formData);
   }
 
-  const parentRecursiveCheck = (initialData) => {
-    console.log('enter recursive function');
+    const isChildOf = (parentId, childId) => {
     
-    if (!initialData.fk_parentgroupid) return true;
+    for (const item of groupList) {
+      if (item.fk_parentgroupid === parentId) {
+        if (item.id === childId) return true;
+    
+        if (isChildOf(item.id, childId)) return true;
+      }
+    }
+    return false;
+  };
+  
 
-    parentAvailable.map((item) => {
-        if (item.fk_parentgroupid === initialData.fk_parentgroupid){
-            setParentAvailable({...parentAvailable,isNotExiste:false})
-            parentRecursiveCheck(item);
-            console.log("found recursion")
-            return;
-        }
-        else
-        {
-            setParentAvailable({...parentAvailable,isNotExist:true})
-            console.log('no match found');
-            return;
-        }
-    })
-
-
-  }
+  
 
   return (
     <div>
@@ -68,7 +67,7 @@ function GroupEditForm({ initialData, groupList, onSubmit, onCancel }) {
           <input
             className="bg-zinc-100"
             type="text"
-            value={formData.groupe}
+            value={formData?formData.groupe:''}
             onChange={(e) =>
               setFormData({ ...formData, groupe: e.target.value })
             }
@@ -78,16 +77,16 @@ function GroupEditForm({ initialData, groupList, onSubmit, onCancel }) {
           <label>Groupe parent</label>
         </div>
         <div className="grid justify-start">
-          <select className=" bg-zinc-100" onChange={(e) => setParentGroup(e)}>
+          <select className=" bg-zinc-100" onChange={(e) => setParentGroup(e)} value={formData?formData.fk_parentgroupid:'xx'}>
             <option key='xx' value=''>aucun</option>
-            {groupList.map((item) => {
+            {parentAvailable.map((item) => {
                
               return (
-                item.groupe !== formData.groupe && parentRecursiveCheck(groupList,item) && (
+                
                   <option key={item.id} value={item.id}>
                     {item.groupe}
                   </option>
-                )
+                
               );
             })}
           </select>

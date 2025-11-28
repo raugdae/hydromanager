@@ -18,9 +18,42 @@ export const useGroup = () => {
         }
         
     }
+
+    const addGroup = async (data) => {
+        const eventid = localStorage.getItem('eventid');
+        const body = {groupname:data.groupe,parentid:data.fk_parentgroupid}
+
+        console.log(body);
+
+        try{
+            const result = await api.post(`/admin/event/${eventid}/addgroup`,body)
+        }
+        catch(err){
+
+            console.log(err,err.message);
+        }
+    }
+
+    const deleteGroup = async (data) => {
+        const eventid = localStorage.getItem('eventid');
+        const groupid = data.id;
+
+        try{
+            const result = await api.delete(`/admin/event/${eventid}/groups/deleteGroup/${groupid}`)
+            return result;
+        }
+        catch(error){
+            if (error.response?.status ===403){
+                console.log(error.response.data.message)
+            }
+            console.log(error,error.message);
+        }
+    }
     
 
     return {
-        updateGroup
+        updateGroup,
+        addGroup,
+        deleteGroup
     }
 }
