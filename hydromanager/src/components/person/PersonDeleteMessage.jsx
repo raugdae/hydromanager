@@ -3,23 +3,23 @@ import CancelButton from "../common/CancelButton";
 
 import { useState } from "react";
 
-function GroupDeleteMessage({ selectedGroup, onSubmit, onCancel }) {
-  const [errorMessage, setErrorMessage] = useState("");
+function PersonDeleteMessage({ selectedPerson, onSubmit, onCancel }) {
+  const [errorMessage, setErrorMessage] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const result = await onSubmit(selectedGroup);
-      onCancel();
+      await onSubmit(selectedPerson);
+      oncancel();
     } catch (error) {
       if (error.status === 403) {
         setErrorMessage(error.data.message);
       } else {
-        console.log("uncatch error", error.message);
+        console.log("Uncaught error", error, error.message);
       }
     }
   };
-
   return (
     <div>
       <form
@@ -27,13 +27,13 @@ function GroupDeleteMessage({ selectedGroup, onSubmit, onCancel }) {
         className="grid grid-cols-2 grid-rows-4 gap-4"
       >
         <div className="grid justify-end">
-          <label>Nom du Groupe</label>
+          <label>Prénom</label>
         </div>
-        <div className="grid justify-start">{selectedGroup.groupe}</div>
+        <div className="grid justify-start">{selectedPerson.firstname}</div>
         <div className="grid justify-end">
-          <label>Groupe parent</label>
+          <label>Nom</label>
         </div>
-        <div className="grid justify-start">{selectedGroup.parent}</div>
+        <div className="grid justify-start">{selectedPerson.lastname}</div>
         <div className="grid justify-end">
           <CancelButton onClick={onCancel}>Retour</CancelButton>
         </div>
@@ -47,4 +47,4 @@ function GroupDeleteMessage({ selectedGroup, onSubmit, onCancel }) {
     </div>
   );
 }
-export default GroupDeleteMessage;
+export default PersonDeleteMessage;

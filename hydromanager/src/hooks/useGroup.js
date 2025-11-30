@@ -27,6 +27,7 @@ export const useGroup = () => {
 
         try{
             const result = await api.post(`/admin/event/${eventid}/addgroup`,body)
+            return result;
         }
         catch(err){
 
@@ -44,7 +45,7 @@ export const useGroup = () => {
         }
         catch(error){
             if (error.response?.status ===403){
-                console.log(error.response.data.message)
+                throw error.response;
             }
             console.log(error,error.message);
         }

@@ -1,0 +1,141 @@
+import { usePerson } from "../../hooks/usePerson";
+import { useState, useEffect } from "react";
+import { useAllergens } from "../../hooks/useAllergens";
+
+import TabItem from "../common/TabItem";
+import TabMenu from "../common/TabMenu";
+import PersonAddressForm from "./PersonAddressForm";
+import PersonHealthForm from "./PersonHealthForm";
+import PersonICEForm from "./PersonICEForm.jsx";
+import ConfirmButton from "../common/ConfirmButton";
+import CancelButton from "../common/CancelButton";
+
+
+function PersonEditForm({ id, onSubmit, onCancel }) {
+  const { getPersonDetail } = usePerson();
+  const { getPersonAllergen } = useAllergens();
+
+  const [personDetail, setPersonDetail] = useState([]);
+  const [activeTab, setActiveTab] = useState("address");
+  const [personAllergens, setPersonAllergens] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getPersonDetail(id);
+      setPersonDetail(response?response.persondetail:'');
+    };
+
+    const fetchAllergen = async () => {
+      const response = await getPersonAllergen(id);
+      setPersonAllergens(response.personAllergenList);
+    };
+
+    fetchAllergen();
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log(personDetail);
+  }, [personDetail]);
+
+  const handleTabSelect = (tabName) => {
+    setActiveTab(tabName);
+  };
+
+  const handleEditFormular = (field, value) => {
+    setPersonDetail({ ...personDetail, [field]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(personDetail, personAllergens);
+    onCancel();
+  };
+
+  
+
+  
+    return (
+      <form
+        className="flex flex-col flex-1 w-full h-full"
+        onSubmit={handleSubmit}
+      >
+        <div className={`grid grid-cols-6 gap-4 m-4`}>
+          <div className="grid col-start-2 justify-end">Prénom</div>
+          <input
+            className="grid col-start-3 bg-zinc-200 rounded-l"
+            type="text"
+            value={personDetail.firstname}
+            onChange={(e) =>
+              setPersonDetail({ ...personDetail, firstname: e.target.value })
+            }
+          />
+          <div className="grid col-start-4 justify-end">Nom</div>
+          <input
+            className="grid col-start-5 bg-zinc-200 rounded-l"
+            type="text"
+            value={personDetail.lastname}
+            onChange={(e) =>
+              setPersonDetail({ ...personDetail, lastname: e.target.value })
+            }
+          />
+        </div>
+        <div className="flex flex-row justify-around gap-4 m-2">
+          <CancelButton onClick={onCancel} />
+          <ConfirmButton submit />
+        </div>
+        <TabMenu>
+          <TabItem
+            tabName="address"
+            isSelected={activeTab === "address"}
+            onClick={handleTabSelect}
+          >
+            Adresse
+          </TabItem>
+          <TabItem
+            tabName="health"
+            isSelected={activeTab === "health"}
+            onClick={handleTabSelect}
+          >
+            Santé
+          </TabItem>
+          <TabItem
+            tabName="ice"
+            isSelected={activeTab === "ice"}
+            onClick={handleTabSelect}
+          >
+            Contact d'urgence
+          </TabItem>
+        </TabMenu>
+        {activeTab === "address" && (
+          <PersonAddressForm
+            streetName={personDetail.street_name}
+            streetNumber={personDetail.street_number}
+            zip={personDetail.zip}
+            city={personDetail.city}
+            onChange={handleEditFormular}
+          />
+        )}
+        {activeTab === "health" && (
+          <PersonHealthForm
+            personId={personDetail.id}
+            isVegetarian={personDetail.isvegetarian}
+            healthCondition={personDetail.health_condition}
+            onChange={handleEditFormular}
+            personAllergenList={personAllergens}
+            setPersonAllergenList={setPersonAllergens}
+          />
+        )}
+        {activeTab === "ice" && (
+          <PersonICEForm
+            iceContactName={personDetail.emergency_contact_name}
+            iceContactNumber={personDetail.emergency_contact_number}
+            iceContactDescription={personDetail.emergency_contact_detail}
+            onChange={handleEditFormular}
+          />
+        )}
+      </form>
+    );
+}
+
+export default PersonEditForm;

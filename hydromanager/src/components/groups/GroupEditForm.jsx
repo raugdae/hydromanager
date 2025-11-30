@@ -1,12 +1,11 @@
 import ConfirmButton from "../common/ConfirmButton";
 import CancelButton from "../common/CancelButton";
 
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function GroupEditForm({ initialData, groupList, onSubmit, onCancel }) {
   const [formData, setFormData] = useState(initialData);
-  const [parentAvailable,setParentAvailable] = useState([]);
-
+  const [parentAvailable, setParentAvailable] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,44 +14,36 @@ function GroupEditForm({ initialData, groupList, onSubmit, onCancel }) {
   };
 
   useEffect(() => {
-
-    if (initialData){
-    const available = groupList.filter((item) => {
-      if (item.id === initialData.id) return false;
-      if (isChildOf(initialData.id, item.id)) return false;
-      return true;
-    });
-    setParentAvailable(available);
-    }
-    else {
+    if (initialData) {
+      const available = groupList.filter((item) => {
+        if (item.id === initialData.id) return false;
+        if (isChildOf(initialData.id, item.id)) return false;
+        return true;
+      });
+      setParentAvailable(available);
+    } else {
       setParentAvailable(groupList);
     }
+  }, [groupList, initialData, formData]);
 
-  }, [groupList, initialData,formData]);
-
-  const setParentGroup = (e) =>{
-    
-    if(e.target.value === ''){
-        setFormData({...formData,fk_parentgroupid:null})
-    }else{
-        setFormData({...formData,fk_parentgroupid:e.target.value})
+  const setParentGroup = (e) => {
+    if (e.target.value === "") {
+      setFormData({ ...formData, fk_parentgroupid: null });
+    } else {
+      setFormData({ ...formData, fk_parentgroupid: e.target.value });
     }
-  }
+  };
 
-    const isChildOf = (parentId, childId) => {
-    
+  const isChildOf = (parentId, childId) => {
     for (const item of groupList) {
       if (item.fk_parentgroupid === parentId) {
         if (item.id === childId) return true;
-    
+
         if (isChildOf(item.id, childId)) return true;
       }
     }
     return false;
   };
-  
-
-  
 
   return (
     <div>
@@ -67,7 +58,7 @@ function GroupEditForm({ initialData, groupList, onSubmit, onCancel }) {
           <input
             className="bg-zinc-100"
             type="text"
-            value={formData?formData.groupe:''}
+            value={formData ? formData.groupe : ""}
             onChange={(e) =>
               setFormData({ ...formData, groupe: e.target.value })
             }
@@ -77,16 +68,19 @@ function GroupEditForm({ initialData, groupList, onSubmit, onCancel }) {
           <label>Groupe parent</label>
         </div>
         <div className="grid justify-start">
-          <select className=" bg-zinc-100" onChange={(e) => setParentGroup(e)} value={formData?formData.fk_parentgroupid:'xx'}>
-            <option key='xx' value=''>aucun</option>
+          <select
+            className=" bg-zinc-100"
+            onChange={(e) => setParentGroup(e)}
+            value={formData ? formData.fk_parentgroupid : "xx"}
+          >
+            <option key="xx" value="">
+              aucun
+            </option>
             {parentAvailable.map((item) => {
-               
               return (
-                
-                  <option key={item.id} value={item.id}>
-                    {item.groupe}
-                  </option>
-                
+                <option key={item.id} value={item.id}>
+                  {item.groupe}
+                </option>
               );
             })}
           </select>
