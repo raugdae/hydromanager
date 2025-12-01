@@ -34,10 +34,6 @@ function PersonEditForm({ id, onSubmit, onCancel }) {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(personDetail);
-  }, [personDetail]);
-
   const handleTabSelect = (tabName) => {
     setActiveTab(tabName);
   };
@@ -57,7 +53,7 @@ function PersonEditForm({ id, onSubmit, onCancel }) {
   
     return (
       <form
-        className="flex flex-col flex-1 w-full h-full"
+        className="flex flex-col flex-1 w-full h-full  bg-zinc-300"
         onSubmit={handleSubmit}
       >
         <div className={`grid grid-cols-6 gap-4 m-4`}>
@@ -79,10 +75,6 @@ function PersonEditForm({ id, onSubmit, onCancel }) {
               setPersonDetail({ ...personDetail, lastname: e.target.value })
             }
           />
-        </div>
-        <div className="flex flex-row justify-around gap-4 m-2">
-          <CancelButton onClick={onCancel} />
-          <ConfirmButton submit />
         </div>
         <TabMenu>
           <TabItem
@@ -130,10 +122,15 @@ function PersonEditForm({ id, onSubmit, onCancel }) {
           <PersonICEForm
             iceContactName={personDetail.emergency_contact_name}
             iceContactNumber={personDetail.emergency_contact_number}
-            iceContactDescription={personDetail.emergency_contact_detail}
+            iceContactDescription={personDetail.emergency_contact_description}
             onChange={handleEditFormular}
           />
         )}
+
+        <div className="flex flex-1 flex-row justify-around gap-4 m-2">
+          <CancelButton onClick={onCancel} />
+          <ConfirmButton submit />
+        </div>
       </form>
     );
 }

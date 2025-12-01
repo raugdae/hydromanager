@@ -14,7 +14,7 @@ function ManagePerson() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
   const [modalType, setModalType] = useState("");
-  const { getPersons, updatePersonDetail, addPerson } = usePerson();
+  const { getPersons, updatePersonDetail, addPerson, deletePerson } = usePerson();
   const { setPersonAllergen } = useAllergens();
 
   async () => {
@@ -29,7 +29,7 @@ function ManagePerson() {
     };
 
     fetchPersons();
-  }, []);
+  }, [isModalOpen]);
 
   const handleEdit = (item) => {
     setIsModalOpen(true);
@@ -39,6 +39,7 @@ function ManagePerson() {
 
   const handleDelete = (item) => {
     setIsModalOpen(true);
+    setSelectedItem(item);
     setModalType("del");
   };
 
@@ -52,22 +53,22 @@ function ManagePerson() {
     return;
   };
 
-  const handleAddPerson = (formData) => {
+  const handleAdd = () => {
     setIsModalOpen(true);
-    addPerson(formData);
-    setModalType('new');
-  };
-
-  const handleSubmitNew = (personData,AllergenData) =>{
-    
+    setModalType('new')
   }
+
+  const handleAddPerson = async(formData,allergenData) => {
+    const newPersonId = await addPerson(formData);
+    setPersonAllergen(newPersonId,allergenData)
+  };
 
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex w-full justify-center font-extrabold text-2xl">
         Gestion des personnes
       </div>
-      <AddButton handleButtonClick={handleAddPerson}/>
+      <AddButton handleButtonClick={handleAdd}/>
       <div
         className={`grid grid-cols-[4fr_4fr_1fr_1fr] px-4 grid-rows-1 animate-fade-in-up w-full border-b-2`}
       >
@@ -105,7 +106,7 @@ function ManagePerson() {
           <PersonDeleteMessage
             selectedPerson={selectedItem}
             onCancel={handleClose}
-            handleSubmit={""}
+            onSubmit={deletePerson}
           />
         )}
         {modalType === "new" && (

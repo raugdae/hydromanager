@@ -37,19 +37,31 @@ export const usePerson = () => {
 
   const addPerson = async (data) => {
     const body = data;
+    console.log(body);
     try {
       const result = await api.post(`/admin/person/addPerson`, body);
-      console.log(result);
-      return result;
+      return result.data.addedPerson.id;
     } catch (error) {
       console.log(error, error.message);
     }
   };
+
+  const deletePerson = async (data) => {
+    const personid = data.id;
+    try {
+      const result = await api.delete(`/admin/person/${personid}/deletePerson`)
+      return result;
+    }catch (error){
+      console.log(error.error.message)
+    }
+
+  }
 
   return {
     getPersons,
     getPersonDetail,
     updatePersonDetail,
     addPerson,
+    deletePerson
   };
 };

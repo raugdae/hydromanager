@@ -11,7 +11,7 @@ function PersonDeleteMessage({ selectedPerson, onSubmit, onCancel }) {
 
     try {
       await onSubmit(selectedPerson);
-      oncancel();
+      onCancel();
     } catch (error) {
       if (error.status === 403) {
         setErrorMessage(error.data.message);

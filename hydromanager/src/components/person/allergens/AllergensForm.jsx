@@ -40,7 +40,7 @@ function AllergensForm({ personAllergenList,setPersonAllergenList }) {
   }
 
   return (
-    <div className='grid grid-cols-2 grid-rows-7 w-full m-2'>
+    <div className='grid grid-cols-3 grid-rows-6 w-full m-2'>
       {allergenList.map((item) => {
         return (
           <LabelledCheckbox
