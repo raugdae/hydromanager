@@ -2,7 +2,7 @@ import LabelledInput from "../common/LabelledInput";
 
 function PersonAddressForm({ streetName ='', streetNumber='', zip ='', city ='', onChange }) {
   return (
-    <div className="h-full bg-zinc-400 overflow-hidden">
+    <div className="flex-1 h-full bg-zinc-400 overflow-hidden">
       <div className="grid grid-cols-1 grid-rows-2 gap-4 pl-4 pt-4">
         <div className="flex flex-row gap-4 w-full ">
           <div className="w-80">

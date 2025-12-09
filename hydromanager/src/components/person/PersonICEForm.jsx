@@ -7,7 +7,7 @@ function PersonICEForm({
   onChange,
 }) {
   return (
-    <div className="h-full bg-zinc-400 overflow-hidden">
+    <div className="flex-1 h-full bg-zinc-400 overflow-hidden">
       <div className="grid grid-cols-2 grid-rows-2 gap-4 p-4">
         
           <div>

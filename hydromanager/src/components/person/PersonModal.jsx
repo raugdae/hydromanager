@@ -5,7 +5,7 @@ function PersonModal({ isOpen, onClose, children }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50">
-      <div className=" flex flex-col w-200 h-120  bg-zinc-600 mx-auto my-24">
+      <div className=" flex flex-col w-200 h-160  bg-zinc-600 mx-auto my-24">
         <div className="flex flex-row">
           <div className="flex flex-1 font-bold text-zinc-200 px-2"> Ajouter / Modifier une personne</div>
           <div className="flex justify-end">

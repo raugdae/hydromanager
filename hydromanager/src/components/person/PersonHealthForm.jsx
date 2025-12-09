@@ -13,7 +13,7 @@ function PersonHealthForm({
 }) {
 
   return (
-    <div className="h-full bg-zinc-400">
+    <div className="flex-1 h-full bg-zinc-400">
       <div className="grid grid-cols-1 grid-rows-[1fr_auto] gap-4">
         <div className="flex flex-col gap-4 w-full p-4">
           <div className="w-45">
