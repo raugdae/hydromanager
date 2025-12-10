@@ -50,11 +50,25 @@ export const useGroup = () => {
             console.log(error,error.message);
         }
     }
-    
+
+    /*const getPlayerGroups = async (personId) => {
+        
+        try {
+            const result = await api.get(``)
+            return result;
+        }
+        catch(error){
+            console.log(error, error.message)
+        }
+
+    }*/
+
+
 
     return {
         updateGroup,
         addGroup,
-        deleteGroup
+        deleteGroup,
+        
     }
 }
