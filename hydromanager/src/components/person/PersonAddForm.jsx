@@ -80,7 +80,7 @@ function PersonAddForm({ onSubmit, onCancel }) {
         <input
           className="grid col-start-5 bg-zinc-200 rounded-l"
           type="date"
-          value={personDetail.birthdate.slice(0,10)}
+          value={''}
           onChange={(e) =>
             setPersonDetail({ ...personDetail, birthdate: e.target.value })
           }

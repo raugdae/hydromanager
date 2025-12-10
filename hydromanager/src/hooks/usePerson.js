@@ -1,9 +1,11 @@
 import api from "../api/axios";
 
 export const usePerson = () => {
-  const getPersons = async () => {
+  const getPersons = async (setLoading) => {
     try {
+      setLoading(true);
       const result = await api.get(`/admin/person/getAllPerson`);
+      setLoading(false);
       return result.data;
     } catch (error) {
       console.log(error, error.message);

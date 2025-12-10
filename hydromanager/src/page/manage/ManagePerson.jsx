@@ -14,6 +14,7 @@ function ManagePerson() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
   const [modalType, setModalType] = useState("");
+  const [isLoading,setIsLoading] = useState(false);
   const { getPersons, updatePersonDetail, addPerson, deletePerson } = usePerson();
   const { setPersonAllergen } = useAllergens();
 
@@ -24,7 +25,7 @@ function ManagePerson() {
 
   useEffect(() => {
     const fetchPersons = async () => {
-      const list = await getPersons();
+      const list = await getPersons(setIsLoading);
       setPersonList(list.personlist);
     };
 
@@ -65,25 +66,27 @@ function ManagePerson() {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="flex w-full justify-center font-extrabold text-2xl">
+      <div className="flex w-full justify-center font-extrabold text-2xl ">
         Gestion des personnes
       </div>
       <AddButton handleButtonClick={handleAdd}/>
       <div
-        className={`grid grid-cols-[4fr_4fr_1fr_1fr] px-4 grid-rows-1 animate-fade-in-up w-full border-b-2`}
+        className={`grid grid-cols-[4fr_4fr_1fr_1fr] px-4 grid-rows-1 animate-fade-in-up w-full`}
       >
         <div className="font-bold">Prénom</div>
         <div className="font-bold">Nom</div>
-        <div className="font-bold">Modifier</div>
-        <div className="font-bold">Supprimer</div>
+        <div></div>
+        <div></div>
       </div>
       <div
-        className={`grid grid-cols-[4fr_4fr_1fr_1fr] px-4 grid-rows-${personList.length} animate-fade-in-up w-full`}
+        className={`grid grid-cols-[4fr_4fr_1fr_1fr] mx-4 items-center animate-fade-in-up w-full `}
       >
-        {personList
+        {!isLoading && personList
           .sort((a, b) => a.lastname.localeCompare(b.lastname))
           .map((item, index) => {
             return (
+              <>
+              
               <PersonList
                 key={index}
                 firstName={item.firstname}
@@ -91,6 +94,7 @@ function ManagePerson() {
                 onClickEdit={() => handleEdit(item)}
                 onClickDelete={() => handleDelete(item)}
               ></PersonList>
+              </>
             );
           })}
       </div>

@@ -7,7 +7,7 @@ function GroupCard({
   onClickDelete,
 }) {
   return (
-    <div className="animate-fade-in-up opacity-0 grid h-48 w-72 grid-cols-2 grid-rows-3 border-b-2 border-emerald-900 bg-linear-to-b from-green-600 to-green-200 p-4 gap-2">
+    <div className="animate-fade-in-up opacity-0 grid h-48 w-72 grid-cols-2 grid-rows-3 bg-linear-to-b from-green-600 to-green-200 p-4 gap-2 hover:scale-110 hover:z-30 transition-transform hover:bg-linear-to-b hover:from-green-800 hover:to-green-200">
       <div className="font-semibold">Nom du groupe</div>
       <div>{groupName}</div>
 

@@ -17,6 +17,7 @@ function PersonEditForm({ id, onSubmit, onCancel }) {
   const [personDetail, setPersonDetail] = useState([]);
   const [activeTab, setActiveTab] = useState("address");
   const [personAllergens, setPersonAllergens] = useState([]);
+  const [isLoading,setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,8 +30,10 @@ function PersonEditForm({ id, onSubmit, onCancel }) {
       setPersonAllergens(response.personAllergenList);
     };
 
+    setIsLoading(true);
     fetchAllergen();
     fetchData();
+    setIsLoading(false);
   }, []);
 
   const handleTabSelect = (tabName) => {
@@ -46,9 +49,12 @@ function PersonEditForm({ id, onSubmit, onCancel }) {
     onSubmit(personDetail, personAllergens);
     onCancel();
   };
+  if (isLoading) {
+    return <div>Loading... please wait</div>
+  }
 
   return (
-    <form
+    !isLoading && <form
       className="flex flex-col flex-1 w-full h-full  bg-zinc-300"
       onSubmit={handleSubmit}
     >

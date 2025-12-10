@@ -2,6 +2,7 @@ import GroupCard from "../../components/groups/GroupCard";
 import GroupModal from "../../components/groups/GroupModal";
 import GroupEditForm from "../../components/groups/GroupEditForm";
 import GroupDeleteMessage from "../../components/groups/GroupDeleteMessage";
+import AddButton from '../../components/common/AddButton';
 
 import { useGroup } from "../../hooks/useGroup";
 import { useState, useEffect } from "react";
@@ -74,15 +75,7 @@ function ManageGroups() {
   return (
     <div className="flex flex-col flex-1 h-full gap-4">
       <div className="flex flex-row justify-around">
-        <button onClick={handleAddGroupClick}>
-          <Plus
-            size={48}
-            color={"green"}
-            className={
-              "hover:cursor-pointer hover:stroke-black hover:bg-emerald-800"
-            }
-          />
-        </button>
+        <AddButton handleButtonClick={handleAddGroupClick}/>
         <button onClick={handleRefreshGroup}>
           <RefreshCcw
             size={48}
@@ -92,7 +85,7 @@ function ManageGroups() {
             }
           />
         </button>
-        <select className='border-2 bg-zinc-200 shadow-2xl shadow-green-400' onChange={(e) => setSelectedFilterGroup(e.target.value)}>
+        <select className='border-2 bg-zinc-200' onChange={(e) => setSelectedFilterGroup(e.target.value)}>
           <option value=''>Aucun filtre</option>
           {groupList.map((item,index)=> {
             return <option key={index} value={item.id}>{item.groupe}</option>
@@ -100,7 +93,7 @@ function ManageGroups() {
         </select>
       </div>
 
-      <div className="flex flex-1 w-full flex-wrap gap-2 overflow-hidden items-start content-start">
+      <div className="flex flex-1 w-full flex-wrap gap-2 overflow-hidden items-start content-start p-2">
         {filteredGroupList
           .sort((a, b) => a.groupe.localeCompare(b.groupe))
           .map((item, index) => (

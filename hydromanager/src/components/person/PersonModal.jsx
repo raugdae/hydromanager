@@ -1,6 +1,9 @@
 import { X } from "lucide-react";
 
 function PersonModal({ isOpen, onClose, children }) {
+
+  
+
   if (!isOpen) return;
 
   return (

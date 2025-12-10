@@ -6,7 +6,8 @@ function AddButton ({handleButtonClick}) {
             size={48}
             color={"green"}
             className={
-              "hover:cursor-pointer hover:stroke-black hover:bg-emerald-800"
+              "hover:cursor-pointer hover:stroke-black hover:rotate-90 transition-transform"
+              
             }
           />
     </button>)
