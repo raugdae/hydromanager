@@ -30,10 +30,10 @@ function PersonEditForm({ id, onSubmit, onCancel }) {
       setPersonAllergens(response.personAllergenList);
     };
 
-    setIsLoading(true);
+    
     fetchAllergen();
     fetchData();
-    setIsLoading(false);
+    
   }, []);
 
   const handleTabSelect = (tabName) => {
@@ -67,7 +67,7 @@ function PersonEditForm({ id, onSubmit, onCancel }) {
           type="text"
           value={personDetail.firstname}
           onChange={(e) =>
-            setPersonDetail({ ...personDetail, firstName: e.target.value })
+            setPersonDetail({ ...personDetail, firstname: e.target.value })
           }
         />
         <div className="grid col-start-4 justify-end">E-Mail</div>

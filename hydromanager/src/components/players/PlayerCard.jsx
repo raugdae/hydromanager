@@ -21,13 +21,15 @@ function PlayerCard({ firstName, lastName, id }) {
   }, [playerGroups]);
 
   return (
-    <div className="grid grid-cols-[2fr_2fr_1fr_5fr] grid-rows-3 content-start">
-      <div><span>Prénom : </span>{firstName}</div>
-      <div><span>Nom : </span>{lastName}</div>
-      <div >Groupes :</div>
-      <div className="bg-amber-400">
+    <div className="grid grid-cols-[2fr_2fr_6fr] content-start py-2 ">
+      <div className='bg-emerald-400'><span className='font-semibold'>Prénom : </span>{firstName}</div>
+      <div className='bg-emerald-400 mr-2'><span className='font-semibold'>Nom : </span>{lastName}</div>
+      <div className='col-start-1 col-span-2 bg-emerald-500 mr-2'>supprimer</div>
+      <div className='row-start-1 col-start-3 border-t-2 border-x-2'>Groupes :</div>
+      <div className='row-start-2 col-start-3 flex flex-row w-full p-4 gap-4 border-b-2 border-x-2 flex-wrap'>
+
         {playerGroups.map((item) => {
-          return <><PlayerGroup groupeName={item.group_name}/><PlayerGroup groupeName={item.group_name}/><PlayerGroup groupeName={item.group_name}/><PlayerGroup groupeName={item.group_name}/></>
+          return <><PlayerGroup groupeName={item.group_name}/></>
         })}
       </div>
 

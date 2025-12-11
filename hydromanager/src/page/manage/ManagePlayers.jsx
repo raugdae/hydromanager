@@ -9,8 +9,7 @@ import AddButton from "../../components/common/AddButton";
 
 function ManagePlayers() {
 
-if(!localStorage.getItem('eventid')) 
-    return(<div>Merci de sélectionner un évènement</div>)
+
 
   const { getPersons } = usePerson();
   const { getEventPlayers, addPlayer } = useAttendee();
@@ -40,7 +39,8 @@ if(!localStorage.getItem('eventid'))
     
   }, []);
 
-  useEffect(() => {const playerIdList = new Set(playerList.map((item) => item.id));
+  useEffect(() => {
+    const playerIdList = new Set(playerList.map((item) => item.id));
       console.log(playerIdList);
       setFilteredPersonList(
         personList.filter((person) => !playerIdList.has(person.id))
@@ -55,25 +55,29 @@ if(!localStorage.getItem('eventid'))
     setModalType("new");
   };
 
-  const addEventPlayer = async (playerList = []) => {};
+  if(!localStorage.getItem('eventid')) 
+    return(<div>Merci de sélectionner un évènement</div>)
 
+  const addEventPlayer = async (playerList = []) => {};
 
 
   
 
   return (
-    <div className="flex flex-col w-full h-full bg-pink-400">
+    <div className="flex flex-col w-full h-full">
       Gestion des Joueurs
       <AddButton handleButtonClick={handleAddPlayer} />
       <div className="flex flex-col flex-1 w-full h-full">
         
           {playerList.map((item) => {
             return ( 
+              <>
                 <PlayerCard
                   firstName={item.firstname}
                   lastName={item.lastname}
                   id={item.id}
                 />
+                </>
               
             );
           })}
