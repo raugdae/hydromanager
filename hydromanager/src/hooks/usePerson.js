@@ -39,7 +39,6 @@ export const usePerson = () => {
 
   const addPerson = async (data) => {
     const body = data;
-    console.log(body);
     try {
       const result = await api.post(`/admin/person/addPerson`, body);
       return result.data.addedPerson.id;

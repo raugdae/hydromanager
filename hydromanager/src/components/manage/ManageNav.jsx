@@ -23,7 +23,7 @@ function ManageNav() {
         className={linkClassDef}
         to="eventplayers"
       >
-        Participants
+        Joueurs
       </Link>
       <Link
         className={linkClassDef}

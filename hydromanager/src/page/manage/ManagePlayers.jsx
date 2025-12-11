@@ -1,53 +1,97 @@
 import { useState, useEffect } from "react";
 import { usePerson } from "../../hooks/usePerson";
-import { useAttendee } from '../../hooks/useAttendee';
+import { useAttendee } from "../../hooks/useAttendee";
 
-import PlayerCard from '../../components/players/PlayerCard';
-import AddButton from '../../components/common/AddButton';
+import PlayerCard from "../../components/players/PlayerCard";
+import PlayerModal from "../../components/players/PlayerModal";
+import PlayerAddForm from "../../components/players/PlayerAddForm";
+import AddButton from "../../components/common/AddButton";
 
 function ManagePlayers() {
+
+if(!localStorage.getItem('eventid')) 
+    return(<div>Merci de sélectionner un évènement</div>)
+
   const { getPersons } = usePerson();
-  const {getEventPlayers,addPlayer} = useAttendee();
+  const { getEventPlayers, addPlayer } = useAttendee();
 
   const [personList, setPersonList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [playerList, setPlayerList] = useState([]);
+  const [filteredPersonList, setFilteredPersonList] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   useEffect(() => {
     const fetchPersonList = async () => {
       const response = await getPersons(setIsLoading);
       setPersonList(response.personlist);
-      console.log(personList);
     };
 
-    const fetchAttendeeList = async() => {
+    const fetchAttendeeList = async () => {
       const response = await getEventPlayers();
       setPlayerList(response.data);
-      console.log(playerList)
-    }
+    };
+
+
 
     fetchAttendeeList();
     fetchPersonList();
+    
   }, []);
+
+  useEffect(() => {const playerIdList = new Set(playerList.map((item) => item.id));
+      console.log(playerIdList);
+      setFilteredPersonList(
+        personList.filter((person) => !playerIdList.has(person.id))
+      );},[playerList])
+
+  useEffect(() => {
+    console.log("Filtered:", filteredPersonList);
+  }, [filteredPersonList]);
+
+  const handleAddPlayer = () => {
+    setShowModal(true);
+    setModalType("new");
+  };
+
+  const addEventPlayer = async (playerList = []) => {};
+
+
 
   
 
   return (
     <div className="flex flex-col w-full h-full bg-pink-400">
-      Gestion des Participants
-      <AddButton />
+      Gestion des Joueurs
+      <AddButton handleButtonClick={handleAddPlayer} />
       <div className="flex flex-col flex-1 w-full h-full">
-        <div className="grid grid-cols-4 animate-fade-in-up">
+        
           {playerList.map((item) => {
-            console.log(item);
-            return (
-              <>
-                <PlayerCard firstName={item.firstname} lastName={item.lastName}/>
-              </>
+            return ( 
+                <PlayerCard
+                  firstName={item.firstname}
+                  lastName={item.lastname}
+                  id={item.id}
+                />
+              
             );
           })}
-        </div>
+        
       </div>
+      <PlayerModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        modalType={modalType}
+      >
+        {modalType === "new" && (
+          <PlayerAddForm
+            personList={filteredPersonList}
+            onSubmit={addEventPlayer}
+            onCancel={() => setShowModal(false)}
+          ></PlayerAddForm>
+        )}
+      </PlayerModal>
     </div>
   );
 }

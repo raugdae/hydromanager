@@ -10,8 +10,8 @@ import CancelButton from "../common/CancelButton.jsx";
 
 function PersonAddForm({ onSubmit, onCancel }) {
   const [personDetail, setPersonDetail] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     street_name: "",
     street_number: "",
     zip: "",
@@ -53,7 +53,7 @@ function PersonAddForm({ onSubmit, onCancel }) {
           type="text"
           value={personDetail.firstname}
           onChange={(e) =>
-            setPersonDetail({ ...personDetail, firstName: e.target.value })
+            setPersonDetail({ ...personDetail, firstname: e.target.value })
           }
         />
 

@@ -27,5 +27,23 @@ export const useAttendee = () => {
     }
   }
 
-  return {getEventPlayers,addPlayer};
-};
+  const getPlayerGroups = async (attendeeid) => {
+
+    const eventId = localStorage.getItem('eventid');
+    const attendeeId = attendeeid;
+
+    console.log("attendeeid",attendeeId);
+
+    try {
+      const result = await api.get(`/admin/event/${eventId}/attendee/${attendeeId}/getGroups`)
+      return result.data;
+    }
+    catch (error){
+      console.log(error,error.message);
+    }
+
+
+  }
+
+  return {getEventPlayers,addPlayer,getPlayerGroups};
+}
