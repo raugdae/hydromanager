@@ -1,4 +1,4 @@
-import ConfirmButton from "../common/ConfirmButton";
+import DeleteButton from "../common/DeleteButton";
 import CancelButton from "../common/CancelButton";
 
 import { useState } from "react";
@@ -37,7 +37,7 @@ function GroupDeleteMessage({ selectedGroup, onSubmit, onCancel }) {
         <div className="grid justify-end">
           <CancelButton onClick={onCancel}>Retour</CancelButton>
         </div>
-        <ConfirmButton submit>Supprimer</ConfirmButton>
+        <DeleteButton submit>Supprimer</DeleteButton>
         {errorMessage && (
           <div className="bg-red-600/80 col-span-2 flex items-center justify-center p-4">
             {errorMessage}

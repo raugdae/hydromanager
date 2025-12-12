@@ -12,7 +12,7 @@ function ManagePlayers() {
 
 
   const { getPersons } = usePerson();
-  const { getEventPlayers, addPlayer } = useAttendee();
+  const { getEventPlayers, addPlayer, removePlayer } = useAttendee();
 
   const [personList, setPersonList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,15 +40,28 @@ function ManagePlayers() {
   }, []);
 
   useEffect(() => {
-    const playerIdList = new Set(playerList.map((item) => item.id));
+   const fetchPersonList = async () => {
+      const response = await getPersons(setIsLoading);
+      setPersonList(response.personlist);
+    };
+
+    const fetchAttendeeList = async () => {
+      const response = await getEventPlayers();
+      setPlayerList(response.data);
+    };
+
+    fetchAttendeeList();
+    fetchPersonList();
+    console.log(playerList);
+  },[showModal])
+
+  
+  useEffect(() => {
+    const playerIdList = new Set(playerList.map((item) => item.personid));
       console.log(playerIdList);
       setFilteredPersonList(
         personList.filter((person) => !playerIdList.has(person.id))
       );},[playerList])
-
-  useEffect(() => {
-    console.log("Filtered:", filteredPersonList);
-  }, [filteredPersonList]);
 
   const handleAddPlayer = () => {
     setShowModal(true);
@@ -58,12 +71,7 @@ function ManagePlayers() {
   if(!localStorage.getItem('eventid')) 
     return(<div>Merci de sélectionner un évènement</div>)
 
-  const addEventPlayer = async (playerList = []) => {};
-
-
-  
-
-  return (
+    return (
     <div className="flex flex-col w-full h-full">
       Gestion des Joueurs
       <AddButton handleButtonClick={handleAddPlayer} />
@@ -75,7 +83,7 @@ function ManagePlayers() {
                 <PlayerCard
                   firstName={item.firstname}
                   lastName={item.lastname}
-                  id={item.id}
+                  attendeeid={item.attendeeid}
                 />
                 </>
               
@@ -91,10 +99,10 @@ function ManagePlayers() {
         {modalType === "new" && (
           <PlayerAddForm
             personList={filteredPersonList}
-            onSubmit={addEventPlayer}
             onCancel={() => setShowModal(false)}
           ></PlayerAddForm>
         )}
+        
       </PlayerModal>
     </div>
   );

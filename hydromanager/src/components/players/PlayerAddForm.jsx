@@ -3,13 +3,37 @@ import ConfirmButton from '../common/ConfirmButton';
 import CancelButton from '../common/CancelButton';
 
 import {useState, useEffect, Fragment} from 'react';
+import {useAttendee} from '../../hooks/useAttendee';
 
 
-function PlayerAddForm ({onSubmit, onCancel, personList}) {
-    const [data,setData] = useState({personid:"",eventid:localStorage.getItem('eventid')})
+function PlayerAddForm ({onCancel, personList}) {
+    const [data,setData] = useState([])
 
+    const {addPlayer} = useAttendee();
+
+    
     const handleSubmit = (e) => {
-        return ('');
+        e.preventDefault();
+        addPlayer(data);
+        onCancel();
+    }
+
+    useEffect(() => {
+        console.log(data);
+    },[data])
+
+    const handleCheckBoxChange = (e) => {
+        
+        if(e.target.checked){
+            
+        setData([...data,{personid:e.target.id,eventid:localStorage.getItem('eventid')}]);
+        }
+        if(!e.target.checked){
+            setData(data.filter(line => line.personid !== e.target.id))
+
+        }
+
+        
     }
 
 
@@ -33,7 +57,7 @@ function PlayerAddForm ({onSubmit, onCancel, personList}) {
                 return (
                     <Fragment key={item.id}>
                         <div className='group contents'>
-                        <div className='col-start-2 group-hover:bg-zinc-400 flex items-center'><LabelledCheckbox/></div>
+                        <div className='col-start-2 group-hover:bg-zinc-400 flex items-center'><input type='checkbox' id={item.id} name={item.firstname} onClick={e => handleCheckBoxChange(e)}></input></div>
                         <div className='col-start-3 group-hover:bg-zinc-400'>{item.firstname}</div>
                         <div className='col-start-4 group-hover:bg-zinc-400'>{item.lastname}</div>
                         </div>
@@ -41,7 +65,7 @@ function PlayerAddForm ({onSubmit, onCancel, personList}) {
                 )
             })}
         </div>
-        <div className='flex flex-row justify-around border-t-2 gap-2 p-4'><CancelButton/><ConfirmButton /></div>
+        <div className='flex flex-row justify-around border-t-2 gap-2 p-4'><CancelButton onClick={onCancel}/><ConfirmButton submit/></div>
     </form>
 )
 }
