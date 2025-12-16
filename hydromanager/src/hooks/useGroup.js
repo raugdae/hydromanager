@@ -63,9 +63,22 @@ export const useGroup = () => {
 
     }*/
 
+        const getEventGroups = async () => {
+
+            const eventid = localStorage.getItem('eventid');
+            try{
+                const result = await api.get(`/admin/event/${eventid}/getGroups`)
+                console.log(result.data);
+                return (result.data);
+            }catch(error){
+                return (error,error.log)
+            }
+        }
+
 
 
     return {
+        getEventGroups,
         updateGroup,
         addGroup,
         deleteGroup,

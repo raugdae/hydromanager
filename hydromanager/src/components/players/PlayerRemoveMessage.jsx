@@ -1,7 +1,7 @@
 import DeleteButton from "../common/DeleteButton";
 import CancelButton from "../common/CancelButton";
 
-function PlayerRemoveMessage({ id, firstName, lastName,onCancel,onConfirm }) {
+function PlayerRemoveMessage({ firstName, lastName,onCancel,onConfirm }) {
   return (
     <div className="absolute inset-0 z-10 grid grid-cols-4 bg-zinc-200 flex-1 justify-items-center">
       <div className="col-span-2 col-start-2 text-2xl font-bold">

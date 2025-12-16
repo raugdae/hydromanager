@@ -30,6 +30,7 @@ export const useAttendee = () => {
     const eventId = localStorage.getItem('eventid');
     const attendeeId = attendeeid;
 
+    console.log(attendeeId);
     try {
       const result = await api.get(`/admin/event/${eventId}/attendee/${attendeeId}/getGroups`)
       return result.data;
@@ -39,6 +40,12 @@ export const useAttendee = () => {
     }
 
 
+  }
+
+  const addPlayerGroup = async (attendeeid,groupid) => {
+
+
+    return true;
   }
 
   const removePlayer = async (attendeeid) => {

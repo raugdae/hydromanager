@@ -4,23 +4,26 @@ import { Trash, UserPlus } from "lucide-react";
 
 import PlayerGroup from "../players/PlayerGroup";
 import PlayerRemoveMessage from './PlayerRemoveMessage.jsx';
+import PlayerAddGroup from './PlayerAddGroup.jsx';
 
 function PlayerCard({ firstName, lastName, attendeeid}) {
   const [playerGroups, setPlayerGroups] = useState([]);
   const { getPlayerGroups,removePlayer } = useAttendee();
 
   const [showPlayerDeleteMessage,setShowPlayerDeleteMessage] = useState(false);
+  const [showAddGroup,setShowAddGroup] = useState(false);
 
   useEffect(() => {
     const fetchPlayerGroups = async () => {
-      const response = await getPlayerGroups(id);
+      const response = await getPlayerGroups(attendeeid);
       setPlayerGroups(response.data);
     };
 
     fetchPlayerGroups();
+
   }, []);
 
-  const handleRemovePlayer = (e) => {
+  const handleRemovePlayer = () => {
     setShowPlayerDeleteMessage(true)
   }
 
@@ -28,6 +31,12 @@ function PlayerCard({ firstName, lastName, attendeeid}) {
     console.log('entre remove', attendeeid);
     removePlayer(attendeeid);
     setShowPlayerDeleteMessage(false)
+  }
+
+  const handleAddGroup = () => {
+    console.log('enter addgroup',attendeeid)
+    setShowAddGroup(true);    
+
   }
 
   return (
@@ -42,7 +51,7 @@ function PlayerCard({ firstName, lastName, attendeeid}) {
       </div>
       <div className="col-start-1 row-start-2 bg-linear-to-b from-green-500 to-green-800 p-2 gap-4">
         <div className='font-semibold p-2 justify-self-center'>Ajouter un groupe</div>
-        <UserPlus className="stroke-blue-800 hover:bg-blue-200 hover:stroke-black hover:cursor-pointer rounded justify-self-center" />
+        <button onClick={() => handleAddGroup()}><UserPlus className="stroke-blue-800 hover:bg-blue-200 hover:stroke-black hover:cursor-pointer rounded justify-self-center" /></button>
       </div>
       <div className="col-start-2 row-start-2 bg-linear-to-b to-green-800 from-green-500 mr-2 p-2 gap-4">
         <div className='font-semibold p-2 justify-self-center'>Supprimer le participant</div>
@@ -56,11 +65,15 @@ function PlayerCard({ firstName, lastName, attendeeid}) {
           return (
             <>
               <PlayerGroup groupeName={item.group_name} />
+              
             </>
           );
         })}
+        {showAddGroup && (<PlayerAddGroup onCancel={() => setShowAddGroup(false)}/>)}
       </div>
       {showPlayerDeleteMessage && (<PlayerRemoveMessage firstName={firstName} lastName={lastName} onConfirm={handleConfirmRemove} onCancel={() => setShowPlayerDeleteMessage(false)}></PlayerRemoveMessage>)}
+      
+      
     </div>
   );
 }

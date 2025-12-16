@@ -36,6 +36,8 @@ function ManagePlayers() {
 
     fetchAttendeeList();
     fetchPersonList();
+
+    
     
   }, []);
 

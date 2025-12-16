@@ -15,8 +15,11 @@ function ManagePerson() {
   const [selectedItem, setSelectedItem] = useState("");
   const [modalType, setModalType] = useState("");
   const [isLoading,setIsLoading] = useState(false);
+  const [searchBox, setSearchBox] = useState('');
+
   const { getPersons, updatePersonDetail, addPerson, deletePerson } = usePerson();
   const { setPersonAllergen } = useAllergens();
+  
 
   async () => {
     const list = await getPersons();
@@ -32,11 +35,17 @@ function ManagePerson() {
     fetchPersons();
   }, [isModalOpen]);
 
+
+  const filteredList = personList.filter((person) => {return (person.lastname.toLowerCase().includes(searchBox.toLowerCase()) || 
+    person.firstname.toLowerCase().includes(searchBox.toLowerCase()))});
+
+
   const handleEdit = (item) => {
     setIsModalOpen(true);
     setModalType("edit");
     setSelectedItem(item);
   };
+
 
   const handleDelete = (item) => {
     setIsModalOpen(true);
@@ -76,12 +85,17 @@ function ManagePerson() {
         <div className="font-bold">Prénom</div>
         <div className="font-bold">Nom</div>
         <div></div>
-        <div></div>
+        <div><input
+  type="text"
+  value={searchBox}
+  onChange={(e) => setSearchBox(e.target.value)}
+  placeholder="Rechercher..."
+/></div>
       </div>
       <div
         className={`grid grid-cols-[4fr_4fr_1fr_1fr] mx-4 items-center animate-fade-in-up w-full `}
       >
-        {!isLoading && personList
+        {!isLoading && filteredList
           .sort((a, b) => a.lastname.localeCompare(b.lastname))
           .map((item, index) => {
             return (
