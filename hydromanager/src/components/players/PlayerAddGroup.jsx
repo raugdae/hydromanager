@@ -37,7 +37,7 @@ const handleConfirmAdd = async() => {
         Sélectionnez un groupe
       </div>
       <div className='col-start-2 row-start-2 col-span-2'>
-        <select>
+        <select className='border-2 border-black bg-white'>
          {groupList.map((item) => {return<option>{item.groupe}</option>})}
          </select>
       </div>

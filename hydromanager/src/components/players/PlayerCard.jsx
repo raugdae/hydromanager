@@ -6,7 +6,7 @@ import PlayerGroup from "../players/PlayerGroup";
 import PlayerRemoveMessage from './PlayerRemoveMessage.jsx';
 import PlayerAddGroup from './PlayerAddGroup.jsx';
 
-function PlayerCard({ firstName, lastName, attendeeid}) {
+function PlayerCard({ firstName, lastName, attendeeid, reloadParent}) {
   const [playerGroups, setPlayerGroups] = useState([]);
   const { getPlayerGroups,removePlayer } = useAttendee();
 
@@ -23,6 +23,7 @@ function PlayerCard({ firstName, lastName, attendeeid}) {
 
   }, []);
 
+
   const handleRemovePlayer = () => {
     setShowPlayerDeleteMessage(true)
   }
@@ -30,30 +31,32 @@ function PlayerCard({ firstName, lastName, attendeeid}) {
   const handleConfirmRemove = () => {
     console.log('entre remove', attendeeid);
     removePlayer(attendeeid);
-    setShowPlayerDeleteMessage(false)
+    setShowPlayerDeleteMessage(false);
+    reloadParent(true); 
   }
 
   const handleAddGroup = () => {
     console.log('enter addgroup',attendeeid)
-    setShowAddGroup(true);    
+    setShowAddGroup(true);
+    reloadParent(true); 
 
   }
 
   return (
-    <div className="relative grid grid-cols-[2fr_2fr_6fr] content-start p-2 drop-shadow-lg">
-      <div className="bg-green-400">
+    <div className="relative grid grid-cols-[2fr_2fr_6fr] content-start p-2 drop-shadow-xl">
+      <div className="bg-zinc-400">
         <span className="font-semibold p-2">Prénom : </span>
         {firstName}
       </div>
-      <div className="bg-green-400 mr-2">
+      <div className="bg-zinc-400 mr-2">
         <span className="font-semibold">Nom : </span>
         {lastName}
       </div>
-      <div className="col-start-1 row-start-2 bg-linear-to-b from-green-500 to-green-800 p-2 gap-4">
-        <div className='font-semibold p-2 justify-self-center'>Ajouter un groupe</div>
-        <button onClick={() => handleAddGroup()}><UserPlus className="stroke-blue-800 hover:bg-blue-200 hover:stroke-black hover:cursor-pointer rounded justify-self-center" /></button>
+      <div className="col-start-1 row-start-2 bg-zinc-200 p-2 gap-4 flex flex-col items-center">
+        <div className='font-semibold p-2'>Ajouter un groupe</div>
+        <button onClick={() => handleAddGroup()} className=''><UserPlus className="stroke-blue-800 hover:bg-blue-200 hover:stroke-black hover:cursor-pointer rounded"/></button>
       </div>
-      <div className="col-start-2 row-start-2 bg-linear-to-b to-green-800 from-green-500 mr-2 p-2 gap-4">
+      <div className="col-start-2 row-start-2 bg-zinc-200  mr-2 p-2 gap-4 flex flex-col items-center">
         <div className='font-semibold p-2 justify-self-center'>Supprimer le participant</div>
         <button onClick={() => handleRemovePlayer()}><Trash className="stroke-red-600 hover:bg-red-400 hover:stroke-black hover:cursor-pointer rounded justify-self-center"/></button>
       </div>

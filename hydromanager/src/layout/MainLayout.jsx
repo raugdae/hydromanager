@@ -8,8 +8,8 @@ function MainLayout() {
         <div className="flex justify-center bg-green-600 text-3xl font-bold text-white">
           HydroManager
         </div>
-        <div className="flex flex-row justify-around gap-4 bg-linear-to-b from-green-600 to-green-900 h-4" />
-          <div className='flex flex-row justify-around gap-4 bg-green-900'>
+        <div className="flex flex-row justify-around gap-4" />
+          <div className='flex flex-row justify-around gap-4'>
             <nav className="flex">
               <LinkMainMenu target="/event" name="Evènements" />
               <LinkMainMenu target="/manage" name="Manager" />

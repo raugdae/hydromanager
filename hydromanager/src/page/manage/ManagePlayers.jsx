@@ -20,6 +20,7 @@ function ManagePlayers() {
   const [filteredPersonList, setFilteredPersonList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
+  const [reloadParent,setReloadParent] = useState(false);
 
   useEffect(() => {
     const fetchPersonList = async () => {
@@ -40,6 +41,10 @@ function ManagePlayers() {
     
     
   }, []);
+
+  useEffect ( () => {
+    setReloadParent(false);
+  },reloadParent)
 
   useEffect(() => {
    const fetchPersonList = async () => {
@@ -86,6 +91,7 @@ function ManagePlayers() {
                   firstName={item.firstname}
                   lastName={item.lastname}
                   attendeeid={item.attendeeid}
+                  reloadParent={setReloadParent}
                 />
                 </>
               
