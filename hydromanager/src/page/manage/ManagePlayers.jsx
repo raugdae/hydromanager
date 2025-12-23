@@ -42,10 +42,6 @@ function ManagePlayers() {
     
   }, []);
 
-  useEffect ( () => {
-    setReloadParent(false);
-  },reloadParent)
-
   useEffect(() => {
    const fetchPersonList = async () => {
       const response = await getPersons(setIsLoading);
@@ -59,8 +55,9 @@ function ManagePlayers() {
 
     fetchAttendeeList();
     fetchPersonList();
+    setReloadParent(false);
     console.log(playerList);
-  },[showModal])
+  },[showModal,reloadParent])
 
   
   useEffect(() => {

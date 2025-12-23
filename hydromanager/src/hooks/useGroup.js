@@ -75,6 +75,33 @@ export const useGroup = () => {
             }
         }
 
+const addPlayerGroup = async (attendeeid,groupid) => {
+    const data = {'attendeeid':attendeeid,'groupid':groupid};
+
+    
+
+    try {
+      const result = await api.post(`/admin/group/addAttendee`,data);
+      console.log(result);
+      return result
+    }
+    catch (error){
+      console.log(error,error.message);
+    }
+
+  }
+
+  const deletePlayerGroup = async (recordid) => {
+    try {
+        const result = await api.delete(`/admin/group/deleteAttendeeGroup/${recordid}`)
+        console.log(result);
+        return result;
+    }catch (error){
+        console.log(error,error.message);
+    }
+
+  }
+
 
 
     return {
@@ -82,6 +109,8 @@ export const useGroup = () => {
         updateGroup,
         addGroup,
         deleteGroup,
+        addPlayerGroup,
+        deletePlayerGroup
         
     }
 }

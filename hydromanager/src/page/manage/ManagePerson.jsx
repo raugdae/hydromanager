@@ -79,7 +79,7 @@ function ManagePerson() {
       <div className="flex w-full justify-center font-extrabold text-2xl ">
         Gestion des personnes
       </div>
-      <div>
+      <div><div className='font-bold size-4'>Ajouter</div>
       <AddButton handleButtonClick={handleAdd} />
       </div>
       <div
@@ -89,7 +89,7 @@ function ManagePerson() {
         <div className="font-bold">Prénom</div>
         <div></div>
         <div>
-          <input
+          <input className='bg-white border-2 border-black rounded'
             type="text"
             value={searchBox}
             onChange={(e) => setSearchBox(e.target.value)}

@@ -18,6 +18,9 @@ function ManageNav() {
       <NavLink className={linkClass} to="/manage" end>
         Liste des évènements
       </NavLink>
+      <NavLink className={linkClass} to="eventdashboard">
+        Dashboard
+      </NavLink>
       <NavLink className={linkClass} to="eventgroups">
         Groupes
       </NavLink>

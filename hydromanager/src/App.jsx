@@ -11,6 +11,7 @@ import Protected from "./page/Protected";
 import EventOverview from "./page/event/EventView";
 import ManageEvent from "./page/manage/ManageEvent";
 import ManageGroups from "./page/manage/ManageGroups";
+import EventDashboard from "./page/manage/EventDashboard";
 import ManagePlayers from "./page/manage/ManagePlayers";
 import EventList from "./page/manage/EventList";
 import Unauthorized from "./page/Unauthorized";
@@ -37,6 +38,7 @@ function App() {
             <Route element={<MainLayout />}>
               <Route path="/manage" element={<ManageLayout />}>
                 <Route index element={<EventList />} />
+                <Route path="eventdashboard" element={<EventDashboard />}/>
                 <Route path="eventdata" element={<ManageEvent />} />
                 <Route path="eventgroups" element={<ManageGroups />} />
                 <Route path="eventplayers" element={<ManagePlayers />} />

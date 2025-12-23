@@ -42,11 +42,7 @@ export const useAttendee = () => {
 
   }
 
-  const addPlayerGroup = async (attendeeid,groupid) => {
 
-
-    return true;
-  }
 
   const removePlayer = async (attendeeid) => {
 
