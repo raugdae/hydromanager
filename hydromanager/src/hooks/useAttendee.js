@@ -25,6 +25,17 @@ export const useAttendee = () => {
     }
   }
 
+  const getPlayerCount = async () => {
+
+    try {
+      const result = await api.get(`/admin/event/${eventid}/countAttendee`)
+      return result.data
+
+    }catch (error){
+      console.log(error, error.message);
+    }
+  }
+
   const getPlayerGroups = async (attendeeid) => {
 
     const eventId = localStorage.getItem('eventid');
@@ -42,8 +53,6 @@ export const useAttendee = () => {
 
   }
 
-
-
   const removePlayer = async (attendeeid) => {
 
     
@@ -60,5 +69,5 @@ export const useAttendee = () => {
     }
   }
 
-  return {getEventPlayers,addPlayer,getPlayerGroups,removePlayer};
+  return {getEventPlayers,getPlayerCount,addPlayer,getPlayerGroups,removePlayer};
 }
