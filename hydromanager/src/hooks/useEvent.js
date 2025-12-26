@@ -1,8 +1,6 @@
 //import {useState,useEffect} from 'react';
 import api from '../api/axios'
 
-
-
 export const useEvent = () =>{     
 
     
@@ -28,11 +26,21 @@ export const useEvent = () =>{
             console.log(err.status,err.message);
         }
     }
+    const fetchEventShopKey = async (eventid) => {
+        try {
+            const result = await api.get(`/admin/event/${eventid}/getShopKey`)
+            return result
+        }
+        catch (err){
+            console.log(err.status,err.message)
+        }
+    }
     
 
     return {
         fetchEventList,
-        fetchEventGroups
+        fetchEventGroups,
+        fetchEventShopKey
     }
 
 }

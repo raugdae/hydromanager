@@ -69,5 +69,21 @@ export const useAttendee = () => {
     }
   }
 
-  return {getEventPlayers,getPlayerCount,addPlayer,getPlayerGroups,removePlayer};
+  const assignTickettoPlayer = async (attendeeid,ticketNumber) => {
+
+    const body = {attendeeid:attendeeid,ticketnumber:ticketNumber}
+
+    console.log(body);
+
+    try {
+      const result = await api.patch(`/admin/attendee/assignTicket`,body)
+      console.log(result);
+    }
+    catch (error){
+      console.log(error, error.message);
+    }
+
+  }
+
+  return {getEventPlayers,getPlayerCount,addPlayer,getPlayerGroups,removePlayer,assignTickettoPlayer};
 }

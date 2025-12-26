@@ -18,10 +18,6 @@ function PlayerAddForm ({onCancel, personList}) {
         onCancel();
     }
 
-    useEffect(() => {
-        console.log(data);
-    },[data])
-
     const handleCheckBoxChange = (e) => {
         
         if(e.target.checked){
