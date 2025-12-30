@@ -93,7 +93,7 @@ function PlayerCard({ firstName, lastName, attendeeid, reloadParent}) {
       </div>
       <div className="col-start-2 row-start-2 bg-zinc-200  p-2 gap-4 flex flex-col items-center min-w-l">
         <div className='font-semibold p-2 justify-self-center'>Supprimer participant</div>
-        <button onClick={() => handleRemovePlayer()}><Trash className="stroke-red-600 hover:bg-red-400 hover:stroke-black hover:cursor-pointer rounded justify-self-center"/></button>
+        <button onClick={() => handleRemovePlayer()}><Trash className="stroke-red-600 hover:bg-red-400 hover:stroke-white hover:cursor-pointer rounded justify-self-center"/></button>
       </div>
       <div className="col-start-3 row-start-2 bg-zinc-200  mr-2 p-2 gap-4 flex flex-col items-center min-w-l">
         <div className='font-semibold p-2 justify-self-center'>Voir le billet</div>

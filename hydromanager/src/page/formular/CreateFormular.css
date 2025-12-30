@@ -1,0 +1,62 @@
+:root{
+    --primary-color: #909090;
+    --control-color: #F0F0F0;
+    --button-color: #666666;
+    --confirm-color: #3b9e06;
+    --border-radius: 5px;
+}
+
+.main-formular-wrapper-flex{
+    display:flex;
+    flex-direction:column;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+}
+
+.main-formular-header{
+    display:grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
+    gap:4px;
+}
+
+.formular-header-label {
+    font-weight: bold;
+    align-self: center;
+    justify-self: end;
+}
+
+.formular-control{
+    background-color:var(--control-color);
+    border-radius: var(--border-radius);
+    margin:4px;
+    border-width: 2px;
+    box-shadow: 1px 1px 1px;
+}
+
+.formular-header-merge-2-cols{
+    grid-column: span 2;
+}
+
+.formular-header-merge-3-cols{
+    grid-column: span 3;
+}
+
+.formular-header-button{
+    background-color: var(--button-color);
+    border-radius: var(--border-radius);
+    color:#DDDDDD;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    width: 150px;
+    font-weight: bold;
+}
+.formular-header-button:hover{
+    background-color: var(--confirm-color);
+    border-width: 2px;
+    cursor: pointer;
+    color:#101010;
+}
+
+

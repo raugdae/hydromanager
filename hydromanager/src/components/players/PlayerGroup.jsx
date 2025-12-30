@@ -8,7 +8,7 @@ function PlayerGroup({ groupeName, recordId, onDelete }) {
       <div>
         <Trash
           onClick={() => onDelete(recordId)}
-          className="stroke-red-600 rounded hover:stroke-black hover:cursor-pointer "
+          className="stroke-red-600 rounded hover:stroke-white hover:cursor-pointer "
         />
       </div>
     </div>

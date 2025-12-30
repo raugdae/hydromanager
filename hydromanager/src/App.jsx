@@ -18,6 +18,7 @@ import ManagePlayers from "./page/manage/ManagePlayers";
 import EventList from "./page/manage/EventList";
 import Unauthorized from "./page/Unauthorized";
 import ManagePerson from "./page/manage/ManagePerson";
+import CreateFormular from "./page/formular/CreateFormular";
 
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -45,7 +46,7 @@ function App() {
                 <Route path="eventgroups" element={<ManageGroups />} />
                 <Route path="eventplayers" element={<ManagePlayers />} />
                 <Route path="manageperson" element={<ManagePerson />} />
-                
+                <Route path="formulars" element={<CreateFormular/>}  />
               </Route>
             </Route>
           </Route>

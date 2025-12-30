@@ -31,6 +31,9 @@ function ManageNav() {
       <NavLink className={linkClass} to="manageperson">
         Personne
       </NavLink>
+      <NavLink className={linkClass} to="formulars">
+        Formulaires
+      </NavLink>
     </div>
   );
 }
