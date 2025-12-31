@@ -1,26 +1,50 @@
 .form-item-wrapper {
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    background-color:grey;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: grey;
+  border-width: 3px;
 }
 .form-item-title {
-    display:block;
-    font-size: 16px;
-    font-weight: bold;
-    margin:4px;
-    background-color: transparent;
-    
+  width: 15rem;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 4px;
+  background-color: transparent;
+  text-align: right;
 }
 
 .form-item-element {
-    margin:4px;
-    display:block;
-
+  display: flex;
+  flex-direction: row;
+  margin: 4px;
+  width: 70%;
 }
 
-.form-item-input{
-    display:block;
-    margin:4px;
-    background-color:#A0A0A0;
+.form-item-input {
+  flex: 1;
+  margin: 4px;
+  background-color: #a0a0a0;
+}
+.form-item-checkbox-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.form-item-button {
+  border-radius: 4px;
+  background-color: #a0a0a0;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-width: 2px;
+}
+.form-item-button:hover {
+  cursor: pointer;
+}
+
+.form-item-flex-row{
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    flex-wrap: wrap;
 }
