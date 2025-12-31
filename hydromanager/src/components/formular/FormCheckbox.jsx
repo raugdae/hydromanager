@@ -21,7 +21,6 @@ function FormCheckbox({ title, value, id, options = [], changeHandler }) {
   const updateItem = () => {
     
     const updatedItem ={id:itemName,value:itemValue,title:itemTitle,options:itemOptions};
-    
     changeHandler(updatedItem);
   }
   

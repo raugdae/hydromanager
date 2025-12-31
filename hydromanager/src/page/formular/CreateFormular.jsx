@@ -136,6 +136,7 @@ function CreateFormular() {
                 id={item.id}
                 value={item.value}
                 title={item.title}
+                changeHandler={handleItemEdit}
               />
             );
             break;
